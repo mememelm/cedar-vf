@@ -1,0 +1,38 @@
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form">
+                <span class="login100-form-title p-b-43">
+                    Connectez-vous à SUIBEN
+                </span>
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <input class="input100" type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
+                        placeholder="E-mail">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input class="input100" type="password" [(ngModel)]="password" placeholder="Mot de passe"
+                        [ngModelOptions]="{standalone: true}">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="container-login100-form-btn" style="margin-top: 50px;">
+                    <button class="login100-form-btn" (click)="login()" [disabled]="!email && !password">
+                        Se connecter
+                    </button>
+                </div>
+
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links">
+                        <a class="label" routerLinkActive="active" data-toggle="modal" data-target="#basicExample">
+                            Créer un compte CEDAR
+                        </a>
+                    </div>
+                </div>
+            </form>
+
+            <div class="login100-more" style="background-image: url('../../../assets/img/sb_logo.png');"></div>
+        </div>
+    </div>
+</div>

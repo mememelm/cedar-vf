@@ -1,6 +1,6 @@
 <div *ngIf="navigation == 'menu'">
     <div class="row d-flex justify-content-center">
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats cursor-pt" (click)="navigateProduction('cuma')">
                 <div class="card-body ">
                     <div class="row">
@@ -11,15 +11,17 @@
                         </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-success">
-                                <i class="nc-icon nc-alert-circle-i text-success"></i>
+                                <span class="text-success">
+                                    {{cuma}}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <div class="col-lg-3 col-md-6 col-sm-6">
+
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats cursor-pt" (click)="navigateProduction('cuvi')">
                 <div class="card-body ">
                     <div class="row">
@@ -30,7 +32,9 @@
                         </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-success">
-                                <i class="nc-icon nc-alert-circle-i text-success"></i>
+                                <span class="text-success">
+                                    {{cuvi}}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -38,10 +42,10 @@
             </div>
         </div>
     </div>
-    
+
     <!-- ROW 2 -->
     <div class="row d-flex justify-content-center">
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats cursor-pt" (click)="navigateProduction('api')">
                 <div class="card-body ">
                     <div class="row">
@@ -52,15 +56,17 @@
                         </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-warning">
-                                <i class="nc-icon nc-alert-circle-i text-warning"></i>
+                                <span class="text-success">
+                                    {{api}}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <div class="col-lg-3 col-md-6 col-sm-6">
+
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats cursor-pt" (click)="navigateProduction('avi')">
                 <div class="card-body ">
                     <div class="row">
@@ -71,15 +77,17 @@
                         </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-warning">
-                                <i class="nc-icon nc-alert-circle-i text-warning"></i>
+                                <span class="text-success">
+                                    {{avi}}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <div class="col-lg-3 col-md-6 col-sm-6">
+
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats cursor-pt" (click)="navigateProduction('cunni')">
                 <div class="card-body ">
                     <div class="row">
@@ -90,7 +98,9 @@
                         </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-warning">
-                                <i class="nc-icon nc-alert-circle-i text-warning"></i>
+                                <span class="text-success">
+                                    {{cunni}}
+                                </span>                                
                             </div>
                         </div>
                     </div>
@@ -98,10 +108,10 @@
             </div>
         </div>
     </div>
-    
+
     <!-- ROW 3 -->
     <div class="row d-flex justify-content-center">
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats cursor-pt" (click)="navigateProduction('bovin')">
                 <div class="card-body ">
                     <div class="row">
@@ -112,15 +122,17 @@
                         </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-danger">
-                                <i class="nc-icon nc-alert-circle-i text-danger"></i>
+                                <span class="text-success">
+                                    {{bovin}}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <div class="col-lg-3 col-md-6 col-sm-6">
+
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats cursor-pt" (click)="navigateProduction('porci')">
                 <div class="card-body ">
                     <div class="row">
@@ -131,7 +143,9 @@
                         </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-danger">
-                                <i class="nc-icon nc-alert-circle-i text-danger"></i>
+                                <span class="text-success">
+                                    {{porci}}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -164,4 +178,14 @@
 <!-- Cunni -->
 <div *ngIf="navigation == 'cunni'">
     <app-cunniculture (emitData)="returnToProduction($event)"></app-cunniculture>
+</div>
+
+<!-- bovin -->
+<div *ngIf="navigation == 'bovin'">
+    <app-bovin (emitData)="returnToProduction($event)"></app-bovin>
+</div>
+
+<!-- porci -->
+<div *ngIf="navigation == 'porci'">
+    <app-porciculture (emitData)="returnToProduction($event)"></app-porciculture>
 </div>

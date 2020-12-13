@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-md-6">
+        <input class="btn btn-info" type="button" value="Imprimer">
+    </div>
+    <div class="col-md-6">
+        <app-domaine-cedar
+            [listFilter]="listInnovation"
+            (emitData)="innovationFilter($event)"
+        ></app-domaine-cedar>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Effectif : {{listInnovation?.length}} </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table datatable class="row-border hover" [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th> Exploitant </th>
+                                <th> Domaine </th>
+                                <th> Adhésion </th>
+                                <th> Innovations acquises </th>
+                                <th> Nombre inn. ac. </th>
+                                <th> Innovations appliquées </th>
+                                <th> Nombre inn. appl. </th>
+                                <th> Innovations personelles</th>
+                                <th> Nombre inn. pers. </th>
+                                <th> Localisation </th>
+                                <th> Activités </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listInnovation" class="cursor-info">
+                                <td>{{item.exploitantFirstName | uppercase}} <br>
+                                    {{item.exploitantLastName | titlecase}}<br>
+                                    {{item.exploitantAge}} ans - {{item.exploitantSex | slice:0:1}}
+                                </td>
+
+                                <td>{{item.exploitantCedar}}</td>
+
+                                <td>{{item.exploitantDate | date: 'dd/MM/yyyy'}}</td>
+
+                                <!-- inn acq -->
+                                <td style="color: #8A0E5C;">
+                                    <span *ngFor="let row of item.innoAcqui">
+                                        <b>{{ row }}</b>
+                                    </span>
+                                </td>
+
+                                <td class="text-center" style="color: #8A0E5C;">
+                                    <span *ngFor="let row of item.innoAcqui; count as c; last as isLast">
+                                        <span *ngIf="isLast"><b>{{ c }}</b></span>
+                                    </span>
+                                </td>
+
+                                <!-- inn app  #DE3E59 -->
+                                <td style="color: #DE3E59;">
+                                    <span *ngFor="let row of item.innoAppli">
+                                        <b>{{ row }}</b>
+                                    </span>
+                                </td>
+
+                                <td class="text-center" style="color: #DE3E59;">
+                                    <span *ngFor="let row of item.innoAppli; count as c; last as isLast">
+                                        <span *ngIf="isLast"><b>{{ c }}</b></span>
+                                    </span>
+                                </td>
+
+                                <!-- inn pers ##162350 -->
+                                <td style="color: #162350;">
+                                    <span *ngFor="let row of item.innoPerso">
+                                        <b>{{ row }}</b>
+                                    </span>
+                                </td>
+
+                                <td class="text-center" style="color: #162350;">
+                                    <span *ngFor="let row of item.innoPerso; count as c; last as isLast">
+                                        <span *ngIf="isLast"><b>{{ c }}</b></span>
+                                    </span>
+                                </td>
+
+                                <td>{{item.exploitantRegion | titlecase}} <br>
+                                    {{item.exploitantDistrict | titlecase}}
+                                </td>
+
+                                <td>{{item.exploitantActivite1 | titlecase}} <br>
+                                    {{item.exploitantActivite2 | titlecase}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

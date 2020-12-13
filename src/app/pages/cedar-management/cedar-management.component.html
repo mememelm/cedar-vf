@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-info" (click)="openModal(actionCedar)">
+            Ajouter un cedar
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Liste des CEDAR</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                                Description
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listDomaine">
+                                <td>
+                                    {{item.domaineName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #actionCedar>
+    <div class="modal-header">
+        <h5>Ajout CEDAR</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body modal-connect">
+        <form [formGroup]="domaineFormGroup">
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" formControlName="domaineName" class="form-control">
+            </div>
+        </form>
+        <div class="form-group d-flex justify-content-center mt-5">
+            <button class="btn btn-md btn-primary mr-1" (click)="addDomaine()">
+                Valider
+            </button>
+            <button class="btn btn-md btn-primary ml-1" (click)="closeModal()">
+                Annuler
+            </button>
+        </div>
+    </div>
+</ng-template>

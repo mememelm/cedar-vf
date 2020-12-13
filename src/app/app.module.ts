@@ -26,7 +26,12 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
+// Component global page
 import { ConnexionComponent } from './pages/connexion/connexion.component';
+
+// MODULE INSTALL
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,8 @@ import { ConnexionComponent } from './pages/connexion/connexion.component';
     AngularFireAuthModule,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },

@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductionComponent implements OnInit {
 
+  public navigation: any
+
   constructor() { }
 
   ngOnInit(): void {
+    this.navigation = 'menu'
   }
 
+  /**
+   * navigateProduction
+   */
+  public navigateProduction(navigation) {
+    this.navigation = navigation
+  }
+
+  /**
+   * returnToProduction
+   */
+  public returnToProduction() {
+    this.navigation = 'menu'
+  }
 }

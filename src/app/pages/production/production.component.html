@@ -1,1 +1,167 @@
-<p>production works!</p>
+<div *ngIf="navigation == 'menu'">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('cuma')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Cultures maraîchères</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-success">
+                                <i class="nc-icon nc-alert-circle-i text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('cuvi')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Cultures vivrières</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-success">
+                                <i class="nc-icon nc-alert-circle-i text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ROW 2 -->
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('api')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Apicultures</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-alert-circle-i text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('avi')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Avicultures</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-alert-circle-i text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('cunni')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Cunnicultures</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-alert-circle-i text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ROW 3 -->
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('bovin')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Bovins</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-danger">
+                                <i class="nc-icon nc-alert-circle-i text-danger"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('porci')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Porcicultures</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-danger">
+                                <i class="nc-icon nc-alert-circle-i text-danger"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CUMA -->
+<div *ngIf="navigation == 'cuma'">
+    <app-cuma (emitData)="returnToProduction($event)"></app-cuma>
+</div>
+
+<!-- CUVI -->
+<div *ngIf="navigation == 'cuvi'">
+    <app-cuvi (emitData)="returnToProduction($event)"></app-cuvi>
+</div>
+
+<!-- Apiculture -->
+<div *ngIf="navigation == 'api'">
+    <app-apiculture (emitData)="returnToProduction($event)"></app-apiculture>
+</div>
+
+<!-- Aviculture -->
+<div *ngIf="navigation == 'avi'">
+    <app-aviculture (emitData)="returnToProduction($event)"></app-aviculture>
+</div>
+
+<!-- Cunni -->
+<div *ngIf="navigation == 'cunni'">
+    <app-cunniculture (emitData)="returnToProduction($event)"></app-cunniculture>
+</div>

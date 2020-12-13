@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-6">
+        <input class="btn btn-success" type="button" value="Production" (click)="returnDoSelection($event)">
+        <input class="btn btn-info" type="button" value="Imprimer">
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>CEDAR : </label>
+            <select [ngModel]="listApiculture" (ngModelChange)="filterApiculture($event)">
+                <option value="tous">Tous</option>
+                <option *ngFor="let item of listDomaine" value="{{item.domaineName}}">{{item.domaineName}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Effectif apiculture : {{listApiculture?.length}} </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table datatable class="row-border hover" [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th> Exploitant </th>
+                                <th> Domaine </th>
+                                <th> Adhésion </th>
+                                <th>Miel</th>
+                                <th>Essaim</th>
+                                <th>Spéculation</th>
+                                <th> Localisation </th>
+                                <th> Compétences </th>
+                                <th> Activités </th>
+                                <th> Spécialités </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listApiculture" class="cursor-info">
+                                <td>{{item.exploitantFirstName | uppercase}} <br>
+                                    {{item.exploitantLastName | titlecase}}<br>
+                                    {{item.exploitantAge}} ans - {{item.exploitantSex | slice:0:1}}
+                                </td>
+                                <td>{{item.exploitantCedar}}</td>
+                                <td>{{item.exploitantDate | date: 'dd/MM/yyyy'}}</td>
+                                <td class="text-center" style="color: #DE3E59;"><b>{{item.miel}} kg</b></td>
+                                <td class="text-center" style="color: #DE3E59;"><b>{{item.essaim}}</b></td>
+                                <td style="color: #DE3E59;">
+                                    <span *ngFor="let row of item.otherTechs">
+                                        <b>. {{ row }}</b><br>
+                                    </span>
+                                </td>
+                                <td>{{item.exploitantRegion | titlecase}} <br>
+                                    {{item.exploitantDistrict | titlecase}}
+                                </td>
+                                <td>{{item.exploitantFormation | titlecase}}</td>
+                                <td>{{item.exploitantActivite1 | titlecase}} <br>
+                                    {{item.exploitantActivite2 | titlecase}}
+                                </td>
+                                <td>{{item.exploitantSpeciality1 | titlecase}} <br>
+                                    {{item.exploitantSpeciality2 | titlecase}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

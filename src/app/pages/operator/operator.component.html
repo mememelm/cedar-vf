@@ -3,9 +3,7 @@
         <input class="btn btn-info" type="button" value="Imprimer">
     </div>
     <div class="col-md-6">
-        <app-domaine-cedar 
-            (emitData)="getOperatorFilter($event)"
-            [listFilter]="listOperator">
+        <app-domaine-cedar (emitData)="getOperatorFilter($event)" [listFilter]="listOperator">
         </app-domaine-cedar>
     </div>
 </div>
@@ -143,11 +141,61 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Formations</label>
+                                        <br><span *ngIf="formationDoing == 0">- aucun</span><span
+                                            *ngIf="formationDoing > 0">- {{formationDoing}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Innovations acquises</label>
+                                        <br><span *ngIf="innovationAcquis == 0">- aucun</span><span
+                                            *ngIf="innovationAcquis > 0">- {{innovationAcquis}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Innovations personnelles</label>
+                                        <br><span *ngIf="innovationPerso == 0">- aucun</span><span
+                                            *ngIf="innovationPerso > 0">- {{innovationPerso}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Innovations appliquées</label>
+                                        <br><span *ngIf="innovationAppli == 0">- aucun</span><span
+                                            *ngIf="innovationAppli > 0">- {{innovationAppli}}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-chart" *ngIf="listHistoCuma">
+                    <div class="card-header">
+                        <h5 class="card-title">Graph CUMA</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="speedChart" width="400" height="100"></canvas>
+                    </div>
+                    <div class="card-footer">
+                        <div class="chart-legend">
+                            <i class="fa fa-circle text-warning"></i> Evolution CUMA
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </ng-template>

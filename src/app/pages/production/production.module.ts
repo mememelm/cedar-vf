@@ -13,6 +13,8 @@ import { BovinComponent } from './bovin/bovin.component';
 import { PorcicultureComponent } from './porciculture/porciculture.component';
 import { CuviHistoriqueComponent } from './cuvi-historique/cuvi-historique.component';
 import { CumaHistoriqueComponent } from './cuma-historique/cuma-historique.component';
+import { FruitComponent } from './fruit/fruit.component';
+import { FruitHistoriqueComponent } from './fruit-historique/fruit-historique.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { CumaHistoriqueComponent } from './cuma-historique/cuma-historique.compo
     BovinComponent,
     PorcicultureComponent,
     CuviHistoriqueComponent,
-    CumaHistoriqueComponent
+    CumaHistoriqueComponent,
+    FruitComponent,
+    FruitHistoriqueComponent
   ],
   imports: [
     CommonModule,

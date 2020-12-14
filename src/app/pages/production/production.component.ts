@@ -18,6 +18,7 @@ export class ProductionComponent implements OnInit {
   public cunni: any
   public bovin: any
   public porci: any
+  public fruit: any
 
   constructor(
     private angularFireDatabase: AngularFireDatabase,
@@ -56,6 +57,7 @@ export class ProductionComponent implements OnInit {
     const arrayAvy = []
     const arrayBovin = []
     const arrayPorci = []
+    const arrayFruit = []
 
     const operator = this.angularFireDatabase.database.ref().child('exploitants')
 
@@ -139,6 +141,20 @@ export class ProductionComponent implements OnInit {
             ...res.val()
           })
           this.bovin = arrayBovin.length
+        })
+      })
+    })
+
+    const fruit = this.angularFireDatabase.database.ref().child('FruitCulture')
+    operator.on('child_added', snap => {
+      const exploitantId = snap.val().exploitantId
+      fruit.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
+        snapshot.forEach((res: any) => {
+          arrayFruit.push({
+            exploitantId,
+            ...res.val()
+          })
+          this.fruit = arrayFruit.length
         })
       })
     })

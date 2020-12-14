@@ -166,7 +166,7 @@ export class DashboardComponent implements OnInit{
       var speedCanvas = document.getElementById("speedChart");
 
       var dataFirst = {
-        data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
+        data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 90],
         fill: false,
         borderColor: '#fbc658',
         backgroundColor: 'transparent',

@@ -41,6 +41,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats cursor-pt" (click)="navigateProduction('fruit')">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category text-left">Cultures fruitières</p>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-success">
+                                <span class="text-success">
+                                    {{fruit}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ROW 2 -->
@@ -100,7 +121,7 @@
                             <div class="icon-big text-center icon-warning">
                                 <span class="text-success">
                                     {{cunni}}
-                                </span>                                
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -157,12 +178,16 @@
 
 <!-- CUMA -->
 <div *ngIf="navigation == 'cuma'">
-    <app-cuma (emitData)="returnToProduction($event)"></app-cuma>
+    <app-cuma (emitData)="returnToProduction($event)" (historicData)="navigateProduction($event)"></app-cuma>
 </div>
 
 <!-- CUVI -->
 <div *ngIf="navigation == 'cuvi'">
-    <app-cuvi (emitData)="returnToProduction($event)"></app-cuvi>
+    <app-cuvi (emitData)="returnToProduction($event)" (historicData)="navigateProduction($event)"></app-cuvi>
+</div>
+
+<div *ngIf="navigation == 'fruit'">
+    <app-fruit (emitData)="returnToProduction($event)" (historicData)="navigateProduction($event)"></app-fruit>
 </div>
 
 <!-- Apiculture -->
@@ -188,4 +213,15 @@
 <!-- porci -->
 <div *ngIf="navigation == 'porci'">
     <app-porciculture (emitData)="returnToProduction($event)"></app-porciculture>
+</div>
+
+<!-- Historique -->
+<div *ngIf="navigation == 'histoCuma'">
+    <app-cuma-historique (emitData)="returnToProduction($event)"></app-cuma-historique>
+</div>
+<div *ngIf="navigation == 'histoCuvi'">
+    <app-cuvi-historique (emitData)="returnToProduction($event)"></app-cuvi-historique>
+</div>
+<div *ngIf="navigation == 'histoFruit'">
+    <app-fruit-historique (emitData)="returnToProduction($event)"></app-fruit-historique>
 </div>

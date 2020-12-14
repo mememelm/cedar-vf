@@ -6,16 +6,17 @@ import { DomaineService } from 'app/services/domaine.service';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-cuma-historique',
-  templateUrl: './cuma-historique.component.html',
-  styleUrls: ['./cuma-historique.component.css']
+  selector: 'app-fruit',
+  templateUrl: './fruit.component.html',
+  styleUrls: ['./fruit.component.css']
 })
-export class CumaHistoriqueComponent implements OnInit {
+export class FruitComponent implements OnInit {
 
   @Output() emitData: EventEmitter<any> = new EventEmitter()
+  @Output() historicData: EventEmitter<any> = new EventEmitter()
 
   public listDomaine: any
-  public listHistoricCuma: any
+  public listFruit: any
   public dtOptions: any = {}
 
   constructor(
@@ -35,25 +36,29 @@ export class CumaHistoriqueComponent implements OnInit {
         this.listDomaine = res
       })
 
-      this.loadMarketFood()
+    this.loadFruit()
   }
 
   /**
-   * returnDoSelection
-   */
+  * returnDoSelection
+  */
   public returnDoSelection(data) {
     this.emitData.emit(data)
   }
 
+  public getHistoric(data) {
+    this.historicData.emit(data)
+  }
+
   /**
-   * loadMarketFood
+   * loadFruit
    */
-  public loadMarketFood() {
+  public loadFruit() {
     this.spinner.show()
 
     const array = []
     const operator = this.angularFireDatabase.database.ref().child('exploitants')
-    const food = this.angularFireDatabase.database.ref().child('HistoricMarket')
+    const fruit = this.angularFireDatabase.database.ref().child('FruitCulture')
 
     operator.on('child_added', snap => {
       const exploitantId = snap.val().exploitantId
@@ -75,7 +80,7 @@ export class CumaHistoriqueComponent implements OnInit {
       const exploitantFormation = snap.val().exploitantFormation
       const exploitantSchooling = snap.val().exploitantSchooling
 
-      food.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
+      fruit.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
         snapshot.forEach((res: any) => {
           array.push({
             exploitantId,
@@ -98,22 +103,21 @@ export class CumaHistoriqueComponent implements OnInit {
             exploitantSchooling,
             ...res.val()
           })
-
-          this.listHistoricCuma = array
+          this.listFruit = array
           this.spinner.hide()
-
         })
       })
     })
   }
 
   /**
-   * filterMarketFood
+   * filter
    */
-  public filterMarketFood(param) {
+  public filter(param) {
+
     const array = []
     const operator = this.angularFireDatabase.database.ref().child('exploitants')
-    const food = this.angularFireDatabase.database.ref().child('HistoricMarket')
+    const fruit = this.angularFireDatabase.database.ref().child('FruitCulture')
 
     operator.on('child_added', snap => {
       const exploitantId = snap.val().exploitantId
@@ -135,7 +139,7 @@ export class CumaHistoriqueComponent implements OnInit {
       const exploitantFormation = snap.val().exploitantFormation
       const exploitantSchooling = snap.val().exploitantSchooling
 
-      food.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
+      fruit.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
         snapshot.forEach((res: any) => {
           if (exploitantCedar == param) {
             array.push({
@@ -159,9 +163,9 @@ export class CumaHistoriqueComponent implements OnInit {
               exploitantSchooling,
               ...res.val()
             })
-
-            this.listHistoricCuma = array
+            this.listFruit = array
           }
+
         })
       })
     })

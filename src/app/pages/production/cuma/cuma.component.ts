@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class CumaComponent implements OnInit {
 
   @Output() emitData: EventEmitter<any> = new EventEmitter()
+  @Output() historicData: EventEmitter<any> = new EventEmitter()
 
   public listDomaine: any
   public listMarketCulture: any
@@ -43,6 +44,10 @@ export class CumaComponent implements OnInit {
    */
   public returnDoSelection(data) {
     this.emitData.emit(data)
+  }
+
+  public getHistoric(data) {
+    this.historicData.emit(data)
   }
 
   /**

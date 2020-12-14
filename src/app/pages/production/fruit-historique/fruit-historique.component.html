@@ -1,13 +1,12 @@
 <div class="row">
     <div class="col-md-6">
         <input class="btn btn-success" type="button" value="Production" (click)="returnDoSelection($event)">
-        <input class="btn btn-danger" type="button" value="Vers historique" (click)="getHistoric('histoCuvi')">
         <input class="btn btn-info" type="button" value="Imprimer">
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label>CEDAR : </label>
-            <select [ngModel]="listFoodCulture" (ngModelChange)="filterFoodCulture($event)">
+            <select [ngModel]="listFruit" (ngModelChange)="filter($event)">
                 <option value="tous">Tous</option>
                 <option *ngFor="let item of listDomaine" value="{{item.domaineName}}">{{item.domaineName}}</option>
             </select>
@@ -19,7 +18,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> Effectif : {{listFoodCulture?.length}} </h4>
+                <h4 class="card-title"> Historique cultures fruitières : {{listFruit?.length}} </h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -29,8 +28,9 @@
                                 <th> Exploitant </th>
                                 <th> Domaine </th>
                                 <th> Adhésion </th>
-                                <th>Surface exploitée</th>
-                                <th>Production annuelle</th>
+                                <th>Date de saisie</th>
+                                <th>Hist. production</th>
+                                <th>Hist. tech</th>
                                 <th> Localisation </th>
                                 <th> Compétences </th>
                                 <th> Activités </th>
@@ -38,15 +38,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of listFoodCulture" class="cursor-info">
+                            <tr *ngFor="let item of listFruit" class="cursor-info">
                                 <td>{{item.exploitantFirstName | uppercase}} <br>
                                     {{item.exploitantLastName | titlecase}}<br>
                                     {{item.exploitantAge}} ans - {{item.exploitantSex | slice:0:1}}
                                 </td>
                                 <td>{{item.exploitantCedar}}</td>
                                 <td>{{item.exploitantDate | date: 'dd/MM/yyyy'}}</td>
-                                <td class="text-center" style="color: #DE3E59;"><b>{{item.surface}} m²</b></td>
-                                <td class="text-center" style="color: #DE3E59;"><b>{{item.averageAnnualProd}} kg</b>
+                                <td class="text-center" style="color: #DE3E59;"><b>{{item.historicDate | date:
+                                        'dd/MM/yyyy - h:mm:ss'}}</b></td>
+                                <td class="text-center" style="color: #DE3E59;"><b>{{item.historicQtyCUFR}} kg</b>
+                                </td>
+                                <td class="text-center" style="color: #DE3E59;"><b>{{item.historicTechCUFR}}</b>
                                 </td>
                                 <td>{{item.exploitantRegion | titlecase}} <br>
                                     {{item.exploitantDistrict | titlecase}}

@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class CuviComponent implements OnInit {
 
   @Output() emitData: EventEmitter<any> = new EventEmitter()
+  @Output() historicData: EventEmitter<any> = new EventEmitter()
 
   public listDomaine: any
   public listFoodCulture: any
@@ -43,6 +44,10 @@ export class CuviComponent implements OnInit {
    */
   public returnDoSelection(data) {
     this.emitData.emit(data)
+  }
+
+  public getHistoric(data) {
+    this.historicData.emit(data)
   }
 
   /**

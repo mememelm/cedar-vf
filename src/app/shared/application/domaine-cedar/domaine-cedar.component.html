@@ -1,7 +1,14 @@
-<div class="form-group">
-    <label>CEDAR : </label>
-    <select [ngModel]="listFilter" (ngModelChange)="emitDataForDomaine($event)">
-        <option value="tous">Tous</option>
-        <option *ngFor="let item of listDomaine" value="{{item.domaineName}}">{{item.domaineName}}</option>
-    </select>
+<div class="row">
+    <div class="col-md-4">
+        <h5 class="card-title"> Effectif {{title}} : {{length}} </h5>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>CEDAR : </label>
+            <select [ngModel]="listFilter" (ngModelChange)="emitDataForDomaine($event)">
+                <option value="tous">Tous</option>
+                <option *ngFor="let item of listDomaine" value="{{item.domaineName}}">{{item.domaineName}}</option>
+            </select>
+        </div>
+    </div>
 </div>

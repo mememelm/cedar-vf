@@ -2,22 +2,23 @@
     <div class="col-md-6">
         <input class="btn btn-info" type="button" value="Imprimer">
     </div>
-    <div class="col-md-6">
-        <app-domaine-cedar (emitData)="getOperatorFilter($event)" [listFilter]="listOperator">
-        </app-domaine-cedar>
-    </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> Effectif : {{listOperator?.length}} </h4>
+                <app-domaine-cedar 
+                    [listFilter]="listOperator" 
+                    [length]="listOperator?.length" 
+                    (emitData)="filterCedar($event)">
+                </app-domaine-cedar>             
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTiggers">
-                        <thead>
+                    <!-- <table class="table"> -->
+                    <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTiggers">                        
+                        <thead class="text-primary">
                             <tr>
                                 <th> Etat civil </th>
                                 <th> Domaine </th>

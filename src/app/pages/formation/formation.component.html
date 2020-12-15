@@ -2,12 +2,14 @@
     <div class="col-md-6">
         <input class="btn btn-info" type="button" value="Imprimer">
     </div>
-    <div class="col-md-6">
-        <app-domaine-cedar
-            [listFilter]="listFormation"
-            (emitData)="formationFilter($event)"
-        >
-        </app-domaine-cedar>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateBegin">
+    </div>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateEnd">
+    </div>
+    <div class="col-md-2">
+        <input type="button" (click)="periodeFilter()" value="Filtrer">
     </div>
 </div>
 
@@ -15,7 +17,9 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> Effectif : {{listFormation?.length}} </h4>
+                <app-domaine-cedar [listFilter]="listFormation" [length]="listFormation?.length"
+                    (emitData)="filterCedar($event)">
+                </app-domaine-cedar>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,7 +29,7 @@
                                 <th> Exploitant </th>
                                 <th> Domaine </th>
                                 <th> Adhésion </th>
-                                <th  style="min-width: 150px;"> Formation(s) </th>
+                                <th style="min-width: 150px;"> Formation(s) </th>
                                 <th> Date formation </th>
                                 <th> Nombre </th>
                                 <th> Localisation </th>

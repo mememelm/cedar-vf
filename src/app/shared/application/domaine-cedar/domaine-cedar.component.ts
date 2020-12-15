@@ -10,8 +10,18 @@ import { map } from 'rxjs/operators';
 export class DomaineCedarComponent implements OnInit {
 
   public listDomaine: any
+
   @Input() public listFilter: any
+  @Input() public length: any
+  @Input() public title: any
+
+  @Input() public dateBegin: any
+  @Input() public dateEnd: any
+
   @Output() emitData: EventEmitter<any> = new EventEmitter<any>()
+
+  @Output() emitBegin: EventEmitter<any> = new EventEmitter<any>()
+  @Output() emitEnd: EventEmitter<any> = new EventEmitter<any>()
 
   constructor(
     private domaineService: DomaineService
@@ -30,6 +40,11 @@ export class DomaineCedarComponent implements OnInit {
    */
   public emitDataForDomaine(param) {
     this.emitData.emit(param)
+  }
+
+  public emitDataDate() {
+    this.emitBegin.emit(this.dateBegin)
+    this.emitEnd.emit(this.dateEnd)
   }
 
 }

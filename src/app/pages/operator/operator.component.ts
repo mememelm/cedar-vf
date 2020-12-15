@@ -19,7 +19,7 @@ import Chart from 'chart.js';
 export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChild('operatorDetail') operatorDetail: any
-  @ViewChild(DataTableDirective, { static: false }) dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective, { static: true }) dtElement: DataTableDirective;
 
   public dtOptions: any = {}
   public dtTiggers = new Subject()
@@ -109,6 +109,17 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
     })
   }
 
+  // applyFilter(filterValue: string) {
+    //     this.exploitants.filter = filterValue.trim().toLowerCase();
+    // }   
+
+  /**
+   * filterList
+   */
+  public filterList(event: any) {
+    
+  }
+
   /**
    * emitDataOperator
    */
@@ -150,7 +161,7 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * getOperatorFIlter
    */
-  public getOperatorFilter(param) {
+  public filterCedar(param) {
     const operator = []
     this.operatorService.getOperatorOnChange(param)
       .subscribe((res: any) => {
@@ -160,7 +171,7 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
         }
       })
     this.listOperator = operator
-    console.log(this.listOperator)
+    // this.dtTiggers.next()
   }
 
   /**

@@ -18,6 +18,9 @@ export class InnovationComponent implements OnInit {
   public listDomaine: any
   public listInnovation: any
 
+  public dateBegin: Date
+  public dateEnd: Date
+
   constructor(
     private angularFireDatabase: AngularFireDatabase,
     private spinner: NgxSpinnerService
@@ -94,7 +97,7 @@ export class InnovationComponent implements OnInit {
   /**
    * innovationFilter
    */
-  public innovationFilter(param) {
+  public filterCedar(param) {
     const array = []
     const operator = this.angularFireDatabase.database.ref().child('exploitants')
     const cedar = this.angularFireDatabase.database.ref().child('Cedar')
@@ -146,6 +149,66 @@ export class InnovationComponent implements OnInit {
           }
 
           this.listInnovation = array
+        })
+      })
+    })
+  }
+
+   /**
+   * periodeFilter
+   */
+  public periodeFilter() {
+
+    const array = []
+    const operator = this.angularFireDatabase.database.ref().child('exploitants')
+    const cedar = this.angularFireDatabase.database.ref().child('Cedar')
+
+    operator.on('child_added', snap => {
+      const exploitantId = snap.val().exploitantId;
+      const exploitantFirstName = snap.val().exploitantFirstName
+      const exploitantLastName = snap.val().exploitantLastName
+      const exploitantCedar = snap.val().exploitantCedar
+      const exploitantDate = snap.val().exploitantDate
+      const exploitantSex = snap.val().exploitantSex
+      const exploitantDomaine = snap.val().exploitantDomaine
+      const exploitantAge = snap.val().exploitantAge
+      const exploitantCommune = snap.val().exploitantCommune
+      const exploitantDistrict = snap.val().exploitantDistrict
+      const exploitantFokotany = snap.val().exploitantFokotany
+      const exploitantRegion = snap.val().exploitantRegion
+      const exploitantActivite1 = snap.val().exploitantActivite1
+      const exploitantActivite2 = snap.val().exploitantActivite2
+      const exploitantSpeciality1 = snap.val().exploitantSpeciality1
+      const exploitantSpeciality2 = snap.val().exploitantSpeciality2
+      const exploitantFormation = snap.val().exploitantFormation
+      const exploitantSchooling = snap.val().exploitantSchooling
+
+      cedar.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
+        snapshot.forEach(cedarData => {
+          if (exploitantDate > this.dateBegin && exploitantDate < this.dateEnd) {
+            array.push({
+              exploitantId,
+              exploitantFirstName,
+              exploitantLastName,
+              exploitantCedar,
+              exploitantDate,
+              exploitantSex,
+              exploitantDomaine,
+              exploitantAge,
+              exploitantCommune,
+              exploitantDistrict,
+              exploitantFokotany,
+              exploitantRegion,
+              exploitantActivite1,
+              exploitantActivite2,
+              exploitantSpeciality1,
+              exploitantSpeciality2,
+              exploitantFormation,
+              exploitantSchooling,
+              ...cedarData.val()
+            })
+            this.listInnovation = array
+          }
         })
       })
     })

@@ -2,11 +2,14 @@
     <div class="col-md-6">
         <input class="btn btn-info" type="button" value="Imprimer">
     </div>
-    <div class="col-md-6">
-        <app-domaine-cedar
-            [listFilter]="listInnovation"
-            (emitData)="innovationFilter($event)"
-        ></app-domaine-cedar>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateBegin">
+    </div>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateEnd">
+    </div>
+    <div class="col-md-2">
+        <input type="button" (click)="periodeFilter()" value="Filtrer">
     </div>
 </div>
 
@@ -14,7 +17,9 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> Effectif : {{listInnovation?.length}} </h4>
+                <app-domaine-cedar [listFilter]="listInnovation" [length]="listInnovation?.length"
+                    (emitData)="filterCedar($event)">
+                </app-domaine-cedar>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

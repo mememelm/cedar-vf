@@ -41,4 +41,23 @@ export class OperatorService {
         }))
       )
   }
+
+  public periodFilterOperator(param, dateBegin, dateEnd) {
+    return this.angularFireDatabase
+      .list('exploitants').snapshotChanges().pipe(
+        map((data: any[]) => data.map(res => {
+          if (param !== 'tous') {
+            if (res.payload.val().exploitantDate > dateBegin && res.payload.val().exploitantDate < dateEnd) {
+              const payload = res.payload.val()
+              const key = res.key
+              return <any>{ key, ...payload }
+            }
+          } else {
+            const payload = res.payload.val()
+            const key = res.key
+            return <any>{ key, ...payload }
+          }
+        }))
+      )
+  }
 }

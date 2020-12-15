@@ -55,11 +55,8 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
 
   public listHistoCuma: any
 
-  public canvas: any;
-  public ctx;
-  public chartColor;
-  public chartEmail;
-  public chartHours;
+  public dateBegin: Date
+  public dateEnd: Date
 
   constructor(
     private operatorService: OperatorService,
@@ -110,14 +107,14 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   // applyFilter(filterValue: string) {
-    //     this.exploitants.filter = filterValue.trim().toLowerCase();
-    // }   
+  //     this.exploitants.filter = filterValue.trim().toLowerCase();
+  // }   
 
   /**
    * filterList
    */
   public filterList(event: any) {
-    
+
   }
 
   /**
@@ -164,6 +161,22 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
   public filterCedar(param) {
     const operator = []
     this.operatorService.getOperatorOnChange(param)
+      .subscribe((res: any) => {
+        for (let i = 0; i < res.length; i++) {
+          if (res[i] !== undefined)
+            operator.push(res[i])
+        }
+      })
+    this.listOperator = operator
+    // this.dtTiggers.next()
+  }
+
+  /**
+   * getOperatorFIlter
+   */
+  public periodeFilter(param) {
+    const operator = []
+    this.operatorService.periodFilterOperator(param, this.dateBegin, this.dateEnd)
       .subscribe((res: any) => {
         for (let i = 0; i < res.length; i++) {
           if (res[i] !== undefined)

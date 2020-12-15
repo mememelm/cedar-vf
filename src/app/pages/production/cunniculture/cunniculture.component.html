@@ -1,16 +1,25 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <input class="btn btn-success" type="button" value="Production" (click)="returnDoSelection($event)">
         <input class="btn btn-info" type="button" value="Imprimer">
     </div>
-    <div class="col-md-6">
+    <div class="col-md-2">
         <div class="form-group">
             <label>CEDAR : </label>
-            <select [ngModel]="listCunni" (ngModelChange)="filterCunni($event)">
+            <select [ngModel]="listCunni" (ngModelChange)="filterCedar($event)">
                 <option value="tous">Tous</option>
                 <option *ngFor="let item of listDomaine" value="{{item.domaineName}}">{{item.domaineName}}</option>
             </select>
         </div>
+    </div>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateBegin">
+    </div>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateEnd">
+    </div>
+    <div class="col-md-1">
+        <input type="button" (click)="periodeFilter()" value="Filtrer">
     </div>
 </div>
 

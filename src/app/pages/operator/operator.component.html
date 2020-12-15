@@ -2,7 +2,17 @@
     <div class="col-md-6">
         <input class="btn btn-info" type="button" value="Imprimer">
     </div>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateBegin">
+    </div>
+    <div class="col-md-2">
+        <input type="date" [(ngModel)]="dateEnd">
+    </div>
+    <div class="col-md-2">
+        <input type="button" (click)="periodeFilter()" value="Filtrer">
+    </div>
 </div>
+
 
 <div class="row">
     <div class="col-md-12">

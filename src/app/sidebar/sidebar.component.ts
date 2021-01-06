@@ -11,6 +11,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/formation', title: 'Formations', icon: 'nc-badge', class: '' },
     { path: '/innovation', title: 'Innovations', icon: 'nc-check-2', class: '' },
     { path: '/production', title: 'Productions', icon: 'nc-box-2', class: '' },
+    { path: '/evolution', title: 'Evolutions', icon: 'nc-chart-bar-32', class: '' },
     { path: '/cedar', title: 'Les CEDAR', icon: 'nc-simple-add', class: 'active-pro' },
 ];
 

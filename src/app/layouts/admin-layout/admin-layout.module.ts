@@ -14,6 +14,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { DomaineCedarComponent } from 'app/shared/application/domaine-cedar/domaine-cedar.component';
 import { CedarManagementComponent } from 'app/pages/cedar-management/cedar-management.component';
 import { ProductionModule } from 'app/pages/production/production.module';
+import { EvolutionComponent } from 'app/pages/evolution/evolution.component';
 
 @NgModule({
   imports: [
@@ -26,19 +27,20 @@ import { ProductionModule } from 'app/pages/production/production.module';
     ProductionModule
   ],
   declarations: [
-
     OperatorComponent,
     FormationComponent,
     InnovationComponent,
     DomaineCedarComponent,
-    CedarManagementComponent
+    CedarManagementComponent,
+    EvolutionComponent
   ], 
   exports: [
     OperatorComponent,
     FormationComponent,
     InnovationComponent,
     DomaineCedarComponent,
-    CedarManagementComponent
+    CedarManagementComponent,
+    EvolutionComponent
   ]
 })
 

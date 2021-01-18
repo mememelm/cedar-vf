@@ -15,6 +15,7 @@ import { DomaineCedarComponent } from 'app/shared/application/domaine-cedar/doma
 import { CedarManagementComponent } from 'app/pages/cedar-management/cedar-management.component';
 import { ProductionModule } from 'app/pages/production/production.module';
 import { EvolutionComponent } from 'app/pages/evolution/evolution.component';
+import { GraphCumaComponent } from 'app/shared/application/graph-cuma/graph-cuma.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { EvolutionComponent } from 'app/pages/evolution/evolution.component';
     InnovationComponent,
     DomaineCedarComponent,
     CedarManagementComponent,
-    EvolutionComponent
+    EvolutionComponent,
+    GraphCumaComponent
   ], 
   exports: [
     OperatorComponent,
@@ -40,7 +42,8 @@ import { EvolutionComponent } from 'app/pages/evolution/evolution.component';
     InnovationComponent,
     DomaineCedarComponent,
     CedarManagementComponent,
-    EvolutionComponent
+    EvolutionComponent,
+    GraphCumaComponent
   ]
 })
 

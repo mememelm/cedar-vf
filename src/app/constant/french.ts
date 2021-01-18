@@ -12,8 +12,8 @@ export class DatatableLanguage {
         emptyTable: "Aucune donnée",
         paginate: {
             first: "Premier",
-            previous: "Pr&eacute;c&eacute;dent",
-            next: "Suivant",
+            previous: "<<",
+            next: ">>",
             last: "Dernier"
         },
         aria: {

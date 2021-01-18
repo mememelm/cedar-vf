@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormationService } from 'app/services/formation.service';
 import { InnovationService } from 'app/services/innovation.service';
 import { AngularFireDatabase } from '@angular/fire/database';
-import Chart from 'chart.js';
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-operator',
@@ -19,10 +19,11 @@ import Chart from 'chart.js';
 export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
 
   @ViewChild('operatorDetail') operatorDetail: any
-  @ViewChild(DataTableDirective, { static: true }) dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
 
-  public dtOptions: any = {}
-  public dtTiggers = new Subject()
+  public dtOptions: DataTables.Settings = {}
+  public dtTiggers: Subject<any> = new Subject()
   public listOperator: any
   public listDomaine: any
 
@@ -64,14 +65,18 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
     private modal: NgbModal,
     private formationService: FormationService,
     private innovationService: InnovationService,
-    private angularFireDatabase: AngularFireDatabase
+    private angularFireDatabase: AngularFireDatabase,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
     this.spinner.show()
 
     this.dtOptions = {
-      language: DatatableLanguage.datatableFrench
+      language: DatatableLanguage.datatableFrench,
+      destroy: true,
+      order: [[2, 'DESC']],
+      responsive: true
     }
 
     this.operatorService.getOperator().snapshotChanges().pipe(
@@ -95,8 +100,8 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
    * loadOperator
    */
   public loadOperator() {
-    this.dtElement.dtInstance.then((res: DataTables.Api) => {
-      res.destroy()
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy()
       this.operatorService.getOperator().snapshotChanges().pipe(
         map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))))
         .subscribe((res: any) => {
@@ -104,17 +109,6 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
           this.dtTiggers.next()
         })
     })
-  }
-
-  // applyFilter(filterValue: string) {
-  //     this.exploitants.filter = filterValue.trim().toLowerCase();
-  // }   
-
-  /**
-   * filterList
-   */
-  public filterList(event: any) {
-
   }
 
   /**
@@ -151,24 +145,25 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
     this.detailCuma(this.firstname, this.lastname)
 
     await <any>this.modal.open(this.operatorDetail, { size: 'lg', backdrop: 'static' })
-
-    // this.loadGraphCuma()
   }
 
   /**
    * getOperatorFIlter
    */
-  public filterCedar(param) {
-    const operator = []
+  public filterCedar(param: any): void {
+    let operator = []
     this.operatorService.getOperatorOnChange(param)
       .subscribe((res: any) => {
         for (let i = 0; i < res.length; i++) {
-          if (res[i] !== undefined)
-            operator.push(res[i])
+          if (res[i] !== undefined) {
+            operator.push(res[i])  
+            const table = $('#datatable').DataTable()
+            table.destroy()                 
+            this.listOperator = operator
+            this.dtTiggers.next() 
+          }
         }
       })
-    this.listOperator = operator
-    // this.dtTiggers.next()
   }
 
   /**
@@ -184,7 +179,6 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
         }
       })
     this.listOperator = operator
-    // this.dtTiggers.next()
   }
 
   /**
@@ -283,95 +277,10 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
 
             this.listHistoCuma = array
             console.log(this.listHistoCuma)
-
-            var speedCanvas = document.getElementById("speedChart")
-
-            for (let item of this.listHistoCuma) {
-              var dataY: any = []
-              var dataX: any = []
-              dataY = item.historicQtyCUMA
-              dataX = item.historicDate
-
-              var dataFirst = {
-                data: [dataY],
-                fill: false,
-                borderColor: '#fbc658',
-                backgroundColor: 'transparent',
-                pointBorderColor: '#fbc658',
-                pointRadius: 4,
-                pointHoverRadius: 4,
-                pointBorderWidth: 8,
-              }
-
-              var speedData = {
-                labels: [dataX],
-                datasets: [dataFirst]
-              }
-
-              var chartOptions = {
-                legend: {
-                  display: false,
-                  position: 'top'
-                }
-              }
-
-              var lineChart = new Chart(speedCanvas, {
-                type: 'line',
-                hover: false,
-                data: speedData,
-                options: chartOptions
-              })
-            }
           }
         })
       })
     })
-  }
-
-  /**
-   * loadGraph
-   */
-  public loadGraphCuma() {
-    let speedCanvas = document.getElementById("speedChart")
-
-    for (let i = 0; i < this.listHistoCuma.length; i++) {
-      let dataY: any = []
-      let dataX: any = []
-      dataY[i] = this.listHistoCuma[i].historicQtyCUMA
-      dataX[i] = this.listHistoCuma[i].historicDate
-
-      let dataFirst = {
-        data: [dataY[i]],
-        fill: false,
-        borderColor: '#fbc658',
-        backgroundColor: 'transparent',
-        pointBorderColor: '#fbc658',
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8,
-      }
-
-      let speedData = {
-        labels: [dataX[i]],
-        datasets: [dataFirst]
-      }
-
-      let chartOptions = {
-        legend: {
-          display: false,
-          position: 'top'
-        }
-      }
-
-      let lineChart = new Chart(speedCanvas, {
-        type: 'line',
-        hover: false,
-        data: speedData,
-        options: chartOptions
-      })
-    }
-
-
   }
 
   /**
@@ -382,4 +291,42 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
     this.innovationPerso = this.innovationAppli = this.innovationAcquis = ''
   }
 
+  // print
+  public print() {
+    let printContent = ''
+    const WindowObject = window.open('', 'PrintWindow', 'width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes')
+    printContent +=
+      `<table style="border:1px solid black">
+            <thead style="background-color: #007E3A; color:white">
+                <tr>
+                    <th>Etat civil</th>
+                    <th>Domaine</th>
+                    <th>Adhésion</th>
+                    <th>Localisation</th> 
+                    <th>Activités</th>
+                    <th>Spécialité</th>
+                </tr>
+            </thead>`;
+    this.listOperator.map(data => {
+      let date = this.datePipe.transform(data.exploitantDate, 'dd MMMM yyyy')
+      printContent +=
+        `<tbody>
+                <tr style="border:1px solid black; padding: 10px">
+                    <td>${data.exploitantFirstName} ${data.exploitantLastName} 
+                        <br> ${data.exploitantAge} ans
+                    </td>
+                    <td>${data.exploitantCedar}</td>
+                    <td>${date}</td>
+                    <td>${data.exploitantRegion}<br>${data.exploitantDistrict}</td> 
+                    <td>${data.exploitantActivite1}<br>${data.exploitantActivite2}</td>
+                    <td>${data.exploitantSpeciality1}<br>${data.exploitantSpeciality2}</td>
+                </tr>
+            </tbody>`;
+      const htmlData = `<html><body>${printContent}</body></html>`
+
+      WindowObject.document.writeln(htmlData)
+      WindowObject.document.close()
+      WindowObject.focus()
+    })
+  }
 }

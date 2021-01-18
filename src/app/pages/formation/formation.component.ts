@@ -1,17 +1,22 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject } from "rxjs";
 import { DatatableLanguage } from 'app/constant/french';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DatePipe } from '@angular/common';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
   styleUrls: ['./formation.component.css']
 })
-export class FormationComponent implements OnInit, OnChanges {
+export class FormationComponent implements OnInit {
 
-  public dtOptions: any = {}
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+
+  public dtOptions: DataTables.Settings = {}
   public dtTigger = new Subject()
 
   public listDomaine: any
@@ -20,31 +25,37 @@ export class FormationComponent implements OnInit, OnChanges {
   public dateBegin: Date
   public dateEnd: Date
 
+  public initTable: boolean
+  public filterTable: boolean
+  public showEmpty: boolean
+
   constructor(
     private angularFireDatabase: AngularFireDatabase,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
 
     this.dtOptions = {
-      language: DatatableLanguage.datatableFrench
+      language: DatatableLanguage.datatableFrench,
+      destroy: true,
+      order: [[2, 'DESC']],
+      responsive: true
     }
 
-    this.loadFormation()
-  }
+    this.initTable = true
+    this.filterTable = false
 
-  ngOnChanges(): void {
+    this.spinner.show()
+
     this.loadFormation()
-    this.dtTigger.next()
   }
 
   /**
    * getFormationOperator
    */
   public loadFormation() {
-    this.spinner.show()
-
     const array = []
     const operator = this.angularFireDatabase.database.ref().child('exploitants')
     const cedar = this.angularFireDatabase.database.ref().child('Cedar')
@@ -104,6 +115,10 @@ export class FormationComponent implements OnInit, OnChanges {
    * formationFilter
    */
   public filterCedar(param) {
+
+    this.initTable = false
+    this.filterTable = true
+
     const array = []
     const operator = this.angularFireDatabase.database.ref().child('exploitants')
     const cedar = this.angularFireDatabase.database.ref().child('Cedar')
@@ -153,6 +168,14 @@ export class FormationComponent implements OnInit, OnChanges {
               ...cedarData.val()
             })
             this.listFormation = array
+
+            console.log(array.length)
+
+            if (array.length !== 0) {
+              this.showEmpty = false
+            } else {
+              this.showEmpty = true
+            }
           }
         })
       })
@@ -217,6 +240,45 @@ export class FormationComponent implements OnInit, OnChanges {
           }
         })
       })
+    })
+  }
+
+  // print
+  public print() {
+    let printContent = ''
+    const WindowObject = window.open('', 'PrintWindow', 'width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes')
+    printContent +=
+      `<table style="border:1px solid black">
+              <thead style="background-color: #007E3A; color:white">
+                  <tr>
+                      <th>Etat civil</th>
+                      <th>Domaine</th>
+                      <th>Adhésion</th>
+                      <th>Localisation</th> 
+                      <th>Activités</th>
+                      <th>Spécialité</th>
+                  </tr>
+              </thead>`;
+    this.listFormation.map(data => {
+      let date = this.datePipe.transform(data.exploitantDate, 'dd MMMM yyyy')
+      printContent +=
+        `<tbody>
+                  <tr style="border:1px solid black; padding: 10px">
+                      <td>${data.exploitantFirstName} ${data.exploitantLastName} 
+                          <br> ${data.exploitantAge} ans
+                      </td>
+                      <td>${data.exploitantCedar}</td>
+                      <td>${date}</td>
+                      <td>${data.exploitantRegion}<br>${data.exploitantDistrict}</td> 
+                      <td>${data.exploitantActivite1}<br>${data.exploitantActivite2}</td>
+                      <td>${data.exploitantSpeciality1}<br>${data.exploitantSpeciality2}</td>
+                  </tr>
+              </tbody>`;
+      const htmlData = `<html><body>${printContent}</body></html>`
+
+      WindowObject.document.writeln(htmlData)
+      WindowObject.document.close()
+      WindowObject.focus()
     })
   }
 

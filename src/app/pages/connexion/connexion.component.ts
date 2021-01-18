@@ -32,7 +32,6 @@ export class ConnexionComponent implements OnInit {
    */
   public login() {
     this.connexionService.loginUser(this.email, this.password)
-    this.resetField()
   }
 
   /**

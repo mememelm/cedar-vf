@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <input class="btn btn-info" type="button" value="Imprimer">
+        <input class="btn btn-info" type="button" value="Imprimer" (click)="print()">
     </div>
     <div class="col-md-2">
         <input type="date" [(ngModel)]="dateBegin">
@@ -27,7 +27,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <!-- <table class="table"> -->
-                    <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTiggers">                        
+                    <table datatable id="datatable" class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTiggers">                        
                         <thead class="text-primary">
                             <tr>
                                 <th> Etat civil </th>
@@ -49,7 +49,7 @@
 
                                 <td>{{item.exploitantCedar}}</td>
 
-                                <td>{{item.exploitantDate | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{item.exploitantDate | date: 'yyyy-MM-dd'}}</td>
 
                                 <td>{{item.exploitantRegion | titlecase}} <br>
                                     {{item.exploitantDistrict | titlecase}}
@@ -190,23 +190,7 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-chart" *ngIf="listHistoCuma">
-                    <div class="card-header">
-                        <h5 class="card-title">Graph CUMA</h5>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="speedChart" width="400" height="100"></canvas>
-                    </div>
-                    <div class="card-footer">
-                        <div class="chart-legend">
-                            <i class="fa fa-circle text-warning"></i> Evolution CUMA
-                        </div>
-                        <hr />
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-graph-cuma></app-graph-cuma>
+        
     </div>
 </ng-template>

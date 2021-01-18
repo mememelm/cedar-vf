@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <input class="btn btn-info" type="button" value="Imprimer">
+        <input class="btn btn-info" type="button" value="Imprimer" (click)="print()">
     </div>
     <div class="col-md-2">
         <input type="date" [(ngModel)]="dateBegin">
@@ -21,9 +21,9 @@
                     (emitData)="filterCedar($event)">
                 </app-domaine-cedar>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="initTable == true">
                 <div class="table-responsive">
-                    <table datatable class="row-border hover" [dtOptions]="dtOptions">
+                    <table datatable id="datatable" class="row-border hover" [dtOptions]="dtOptions">
                         <thead>
                             <tr>
                                 <th> Exploitant </th>
@@ -87,6 +87,77 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="card-body" *ngIf="filterTable == true && showEmpty == false">
+                <div class="table-responsive">
+                    <table datatable id="datatable" class="row-border hover" [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th> Exploitant </th>
+                                <th> Domaine </th>
+                                <th> Adhésion </th>
+                                <th style="min-width: 150px;"> Formation(s) </th>
+                                <th> Date formation </th>
+                                <th> Nombre </th>
+                                <th> Localisation </th>
+                                <th> Compétences </th>
+                                <th> Niveau d'étude </th>
+                                <th> Activités </th>
+                                <th> Spécialités </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listFormation" class="cursor-info">
+                                <td>{{item.exploitantFirstName | uppercase}} <br>
+                                    {{item.exploitantLastName | titlecase}}<br>
+                                    {{item.exploitantAge}} ans - {{item.exploitantSex | slice:0:1}}
+                                </td>
+
+                                <td>{{item.exploitantCedar}}</td>
+
+                                <td>{{item.exploitantDate | date: 'dd/MM/yyyy'}}</td>
+
+                                <td style="color: #DE3E59;">
+                                    <span *ngFor="let row of item.formations">
+                                        <b>{{ row.formationName }}</b><br>
+                                    </span>
+                                </td>
+
+                                <td style="color: #DE3E59;">
+                                    <span *ngFor="let row of item.formations">
+                                        <b>{{ row.formationDate | date: 'dd/MM/yyyy'}}</b><br>
+                                    </span>
+                                </td>
+
+                                <td class="text-center" style="color: #DE3E59;">
+                                    <div *ngFor="let row of item.formations; count as c; last as isLast">
+                                        <span *ngIf="isLast"><b>{{ c }}</b></span>
+                                    </div>
+                                </td>
+
+                                <td>{{item.exploitantRegion | titlecase}} <br>
+                                    {{item.exploitantDistrict | titlecase}}
+                                </td>
+
+                                <td>{{item.exploitantFormation | titlecase}}</td>
+
+                                <td>{{item.exploitantSchooling | titlecase}}</td>
+
+                                <td>{{item.exploitantActivite1 | titlecase}} <br>
+                                    {{item.exploitantActivite2 | titlecase}}
+                                </td>
+
+                                <td>{{item.exploitantSpeciality1 | titlecase}} <br>
+                                    {{item.exploitantSpeciality2 | titlecase}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center" *ngIf="showEmpty == true">
+                Aucun donnée dans ce domaine CEDAR
             </div>
         </div>
     </div>

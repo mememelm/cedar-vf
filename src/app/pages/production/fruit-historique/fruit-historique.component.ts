@@ -173,7 +173,7 @@ export class FruitHistoriqueComponent implements OnInit {
   /**
    * filter
    */
-  public periodeFilter(param) {
+  public periodeFilter() {
 
     const array = []
     const operator = this.angularFireDatabase.database.ref().child('exploitants')

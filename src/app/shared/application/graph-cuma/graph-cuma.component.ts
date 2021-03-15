@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
 
 @Component({
@@ -8,20 +8,19 @@ import { Chart } from "chart.js";
 })
 export class GraphCumaComponent implements OnInit {
 
-  public canvas: any
-  public ctx: any
-  public chartColor: any
-  public chartEmail: any
-  public chartHours: any
+  @Input() dataCUMA: any = []
 
   constructor() { }
 
   ngOnInit(): void {
 
+    console.log('dataCUMA', this.dataCUMA)
+
     var speedCanvas: any = document.getElementById("speedChart")
 
+    // CUMA
     var dataFirst = {
-      data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
+      data: [5, 0, 75, 42],
       fill: false,
       borderColor: '#fbc658',
       backgroundColor: 'transparent',
@@ -31,8 +30,9 @@ export class GraphCumaComponent implements OnInit {
       pointBorderWidth: 8,
     }
 
+    // CUVI
     var dataSecond = {
-      data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
+      data: [0, 5, 10, 12],
       fill: false,
       borderColor: '#51CACF',
       backgroundColor: 'transparent',
@@ -42,20 +42,21 @@ export class GraphCumaComponent implements OnInit {
       pointBorderWidth: 8
     };
 
-    var dataThird = {
-      data: [5, 0, 75, 42, 64, 45, 54, 68, 21, 35, 64, 46],
-      fill: false,
-      borderColor: 'green',
-      backgroundColor: 'transparent',
-      pointBorderColor: 'green',
-      pointRadius: 4,
-      pointHoverRadius: 4,
-      pointBorderWidth: 8
-    };
+    // Agri
+    // var dataThird = {
+    //   data: [this.dataCUMA],
+    //   fill: false,
+    //   borderColor: 'green',
+    //   backgroundColor: 'transparent',
+    //   pointBorderColor: 'green',
+    //   pointRadius: 4,
+    //   pointHoverRadius: 4,
+    //   pointBorderWidth: 8
+    // };
 
     var speedData = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [dataFirst, dataSecond, dataThird]
+      labels: ["Jan", "Feb", "Mar", "Apr"],
+      datasets: [dataFirst, dataSecond]
     }
 
     var lineChart: any = new Chart(speedCanvas, {

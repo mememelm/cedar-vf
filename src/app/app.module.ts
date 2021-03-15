@@ -32,12 +32,14 @@ import { ConnexionComponent } from './pages/connexion/connexion.component';
 
 // MODULE INSTALL
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { GraphCuviComponent } from './shared/application/graph-cuvi/graph-cuvi.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    GraphCuviComponent
   ],
   imports: [
     BrowserAnimationsModule,

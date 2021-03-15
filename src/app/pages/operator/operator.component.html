@@ -9,7 +9,7 @@
         <input type="date" [(ngModel)]="dateEnd">
     </div>
     <div class="col-md-2">
-        <input type="button" (click)="periodeFilter()" value="Filtrer">
+        <input type="button" (click)="periodeFilter($event)" value="Filtrer">
     </div>
 </div>
 
@@ -18,16 +18,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <app-domaine-cedar 
-                    [listFilter]="listOperator" 
-                    [length]="listOperator?.length" 
+                <app-domaine-cedar [listFilter]="listOperator" [length]="listOperator?.length"
                     (emitData)="filterCedar($event)">
-                </app-domaine-cedar>             
+                </app-domaine-cedar>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <!-- <table class="table"> -->
-                    <table datatable id="datatable" class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTiggers">                        
+                    <table datatable id="datatable" class="row-border hover" [dtOptions]="dtOptions"
+                        [dtTrigger]="dtTiggers">
                         <thead class="text-primary">
                             <tr>
                                 <th> Etat civil </th>
@@ -190,7 +189,12 @@
             </div>
         </div>
 
-        <app-graph-cuma></app-graph-cuma>
-        
+        <app-graph-cuma [dataCUMA]="listHistoCuma">
+        </app-graph-cuma>
+
+        <div class="d-flex justify-content-center">
+            <app-table [listAgri]="cumulAgri"></app-table>
+        </div>
+
     </div>
 </ng-template>

@@ -54,7 +54,10 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
   public innovationPerso: any
   public innovationAppli: any
 
-  public listHistoCuma: any
+  public listHistoCuma: any = []
+  public cumulAgri: any
+  public listHistoCuvi: any = []
+  public listHistoFruit: any = []
 
   public dateBegin: Date
   public dateEnd: Date
@@ -156,11 +159,11 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe((res: any) => {
         for (let i = 0; i < res.length; i++) {
           if (res[i] !== undefined) {
-            operator.push(res[i])  
+            operator.push(res[i])
             const table = $('#datatable').DataTable()
-            table.destroy()                 
+            table.destroy()
             this.listOperator = operator
-            this.dtTiggers.next() 
+            this.dtTiggers.next()
           }
         }
       })
@@ -257,7 +260,9 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
    * name
    */
   public detailCuma(firstname, lastname) {
-    const array = []
+    this.cumulAgri = 0
+
+    const array: any = []
     const operator = this.angularFireDatabase.database.ref().child('exploitants')
     const cuma = this.angularFireDatabase.database.ref().child('HistoricMarket')
 
@@ -275,12 +280,84 @@ export class OperatorComponent implements OnInit, OnChanges, OnDestroy {
               ...res.val()
             })
 
-            this.listHistoCuma = array
-            console.log(this.listHistoCuma)
+            for (let i = 0; i < array.length; i++) {
+              this.listHistoCuma[i] = array[i].historicQtyCUMA
+              console.log(
+                [this.listHistoCuma[i]].reduce(function (acc, val) { return acc + val; }, 0)
+              )
+              this.cumulAgri = this.listHistoCuma[i]
+              console.log('cuma', this.cumulAgri)
+            }
+
           }
         })
       })
     })
+
+    const array1: any = []
+    const operator1 = this.angularFireDatabase.database.ref().child('exploitants')
+    const cuma1 = this.angularFireDatabase.database.ref().child('HistoricFood')
+
+    operator1.on('child_added', snap => {
+      const exploitantId = snap.val().exploitantId
+      const exploitantFirstName = snap.val().exploitantFirstName
+      const exploitantLastName = snap.val().exploitantLastName
+
+      cuma1.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
+        snapshot.forEach((res: any) => {
+          if (exploitantFirstName == firstname && exploitantLastName == lastname) {
+            array1.push({
+              exploitantFirstName,
+              exploitantLastName,
+              ...res.val()
+            })
+
+            for (let i = 0; i < array1.length; i++) {
+              this.listHistoCuvi[i] = array1[i].historicQtyCUVI
+              console.log(
+                [this.listHistoCuvi[i]].reduce(function (acc, val) { return acc + val; }, 0)
+              )
+              this.cumulAgri += this.listHistoCuvi[i]
+              console.log('cuvi', this.cumulAgri)
+            }
+          }
+        })
+      })
+    })
+
+    // historicQtyCUFR
+    const array2: any = []
+    const operator2 = this.angularFireDatabase.database.ref().child('exploitants')
+    const cuma2 = this.angularFireDatabase.database.ref().child('HistoricFruit')
+
+    operator2.on('child_added', snap => {
+      const exploitantId = snap.val().exploitantId
+      const exploitantFirstName = snap.val().exploitantFirstName
+      const exploitantLastName = snap.val().exploitantLastName
+
+      cuma2.orderByChild('exploitantId').equalTo(exploitantId).on('value', snapshot => {
+        snapshot.forEach((res: any) => {
+          if (exploitantFirstName == firstname && exploitantLastName == lastname) {
+            array1.push({
+              exploitantFirstName,
+              exploitantLastName,
+              ...res.val()
+            })
+
+            for (let i = 0; i < array2.length; i++) {
+              this.listHistoFruit[i] = array2[i].historicQtyCUFR
+              console.log(
+                [this.listHistoFruit[i]].reduce(function (acc, val) { return acc + val; }, 0)
+              )
+              this.cumulAgri += this.listHistoFruit[i]
+              console.log('cufruit', this.cumulAgri)
+            }
+          }
+        })
+      })
+    })
+
+
   }
 
   /**
